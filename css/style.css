@@ -1,0 +1,121 @@
+.main{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.header{
+    background-color: #1abc9c;
+    font-size: 25px;
+    padding: 2px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+.content{
+    text-align: center;
+    height: 100vh;
+}
+.add-book{
+    width: 150px;
+    height: 40px;
+    margin: 20px;
+}
+.books{
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin-bottom: 40px;
+}
+.section{
+    margin: 30px;
+    margin-bottom: 60px;
+}
+
+/*pee-aye creative
+          Add Decorative Horizontal Lines Beside Heading Text
+          from:
+          https://www.peeayecreative.com/how-to-add-decorative-horizontal-lines-beside-heading-text-in-divi/
+          On 27 Feb 2022
+*/
+
+/*center the heading and lines*/
+.section > h2{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+    
+}
+/*add and adjust the lines*/
+.section > h2:before,
+.section > h2:after{
+	content: '';
+	border-top: 2px solid;
+	margin: 0 20px 0 0;
+	flex: 1 0 20px;
+	color: #666666;
+}
+/*add spacing between heading and lines*/
+.section > h2:after {
+	margin: 0 0 0 20px;
+}
+
+.shelf{
+    background-color: rgb(228, 228, 228);
+    height: 250px;
+    display: flex;
+    justify-content: flex-start; /* center items vertically */
+    align-items: center;     /* center items horizontally*/
+    overflow-x: scroll;
+}
+.shelf > *{
+    background-color: antiquewhite;
+    border: 1px solid black;
+    width: 170px;
+    height: 220px;
+    margin: 10px;
+    flex-shrink: 0;
+    overflow: scroll;
+}
+
+/*dialog for adding a book, set invisable as default*/
+.dialog{
+    width: 300px;
+    height: 400px;
+    z-index: 1;
+    top: 140px;
+    left: 50%;
+    margin-left: -150px;
+    position:fixed;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+.dialog > *{
+    margin: 15px;
+    margin-top: 20px;   
+    height: 40px;
+    padding: 0 10px 0 10px;
+}
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+}
+.search-categories{
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 2px;
+    padding: 5px;
+}
+.search-categories::after{
+    font-size: 1rem;
+    right: 10px;
+    position: absolute;
+}

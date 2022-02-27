@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtuShelf</title>
+
+    <!-- Nicolas Gallagher
+          Normalize.css
+          Downloaded from:
+          https://raw.githubusercontent.com/necolas/normalize.css/master/normalize.css
+          On 24 Feb 2022
+    -->
+  	<link rel="stylesheet" type="text/css" href="./css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>VirtuShelf</h1>
+        </div>
+
+        <div class="content">
+            <button class="add-book">+ Add Book</button>
+
+            <div class="dialog">
+                <input type="text" placeholder="Title" class="title" required>
+                <input type="text" placeholder="Author" class="author" required>
+                <input type="number" placeholder="Pages" min="0" class="pages" required>
+                
+
+                <select name="search-categories" class="search-categories" required>
+                   <option value="" disabled selected>Select your book status</option>
+                   <option value="reading-book">Reading</option>
+                   <option value="future-read-book">Future Read</option>
+                   <option value="finised-book">Finished</option>
+                </select>            
+
+                <button class="submit">Add Book</button>
+            </div>
+
+            <div class="books">
+                <div class="current-reads section">
+                    <h2>Currently Reading</h2>
+                    <div class="shelf">
+                    
+                    </div>
+                </div>
+
+                <div class="future-reads section">
+                    <h2>Future Reading</h2>
+                    <div class="shelf">
+
+                    </div>
+                </div>
+
+                <div class="finised section">
+                    <h2>Finished</h2>
+                    <div class="shelf">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./external.js"></script>
+</body>
+</html>
