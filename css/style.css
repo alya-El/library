@@ -80,9 +80,15 @@
     flex-shrink: 0;
     overflow: scroll;
 }
+.book{
+    cursor: pointer;
+}
+.book > *{
+    padding: 0 10px 0 10px;
+}
 
 /*dialog for adding a book, set invisable as default*/
-.dialog{
+.dialog, .edit-book{
     width: 300px;
     height: 400px;
     z-index: 1;
@@ -93,16 +99,28 @@
     background-color: white;
     border: 3px solid black;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
     display: none;
+    flex-direction: column;
 }
-.dialog > *{
+.dialog > *, .edit-book > *{
     margin: 15px;
     margin-top: 20px;   
     height: 40px;
     padding: 0 10px 0 10px;
 }
+
+.edit-book{
+    height: 150px;
+}
+.edit-book > button{
+    background-color: rgb(245, 86, 86);
+    border-radius: 5px;
+    border: 1px solid rgb(245, 38, 38);
+}
+.edit-book > button:hover{
+    background-color: rgb(241, 115, 115);
+}
+
 select {
     -webkit-appearance: none;
     appearance: none;

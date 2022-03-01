@@ -29,7 +29,7 @@
         <div class="content">
             <button class="add-book">+ Add Book</button>
 
-            <div class="dialog">
+            <form class="dialog">
                 <input type="text" placeholder="Title" class="title" required>
                 <input type="text" placeholder="Author" class="author" required>
                 <input type="number" placeholder="Pages" min="0" class="pages" required>
@@ -37,19 +37,30 @@
 
                 <select name="search-categories" class="search-categories" required>
                    <option value="" disabled selected>Select your book status</option>
-                   <option value="reading-book">Reading</option>
+                   <option value="reading-book">Currently Reading</option>
                    <option value="future-read-book">Future Read</option>
                    <option value="finised-book">Finished</option>
                 </select>            
 
-                <button class="submit">Add Book</button>
-            </div>
+                <button type="button" class="submit">Add Book</button>
+            </form>
 
+            <form class="edit-book">
+                <select name="search-categories" class="search-categories">
+                   <option value="" disabled selected>Select your book status</option>
+                   <option value="reading-book">Currently Reading</option>
+                   <option value="future-read-book">Future Read</option>
+                   <option value="finised-book">Finished</option>
+                </select>            
+
+                <button type="button" class="delete">Delete</button>
+            </form>
+            
             <div class="books">
                 <div class="current-reads section">
                     <h2>Currently Reading</h2>
                     <div class="shelf">
-                    
+                
                     </div>
                 </div>
 
