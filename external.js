@@ -1,14 +1,21 @@
 function Library(){
     const addBook = document.querySelector('.add-book');
+    const deleteBook = document.querySelector('.delete');
+
     const booksSection = document.querySelector('.books');
     const dialog = document.querySelector('.dialog');
-    const editDialog = document.querySelector('.edit-book')
+    const editDialog = document.querySelector('.edit-book');
+
     const submitBtn = document.querySelector('.submit');
+    const submitEdit = document.querySelector('.submit-edit');
 
     let title = '';
     let author = '';
     let pages = '';
     let bookStatus = '';
+
+    let currBook = -1;
+    let currTitle = ''
 
     let myLibrary = JSON.parse(localStorage.getItem("myLibrary") || "[]");
 
@@ -19,47 +26,47 @@ function Library(){
         this.status = status;
     }
 
-    window.onload = loadShelf(myLibrary.length);
-
-    window.addEventListener("mouseup", function(e){
-        if(e.target != dialog && e.target.parentNode != dialog){
-            //if user clicks out of dialog
-            resetValues();
-        }
+    window.onload = loadShelf();
+    
+    document.querySelector('.background-screen').addEventListener("click", function(){
+        resetValues();
     });
 
     addBook.addEventListener("click", function(){
         //puts dialog in focus
-        dialog.style.display = 'flex'; 
-        booksSection.style.opacity = '0.3';
-        addBook.style.opacity = '0.3';
-
+        showDialog(dialog);
+        
         dialog.addEventListener("mouseout", function(e){
             addBookDetail(e.target);
+
+            resetInvalidInput();
         });
     });
 
-
     submitBtn.addEventListener("click", function(){
         if(!myLibrary.some(e => e.title.toLowerCase().replace(/\s/g, '') == title.toLowerCase().replace(/\s/g, ''))){
-            if(title != '' && author != '' && pages != '' && bookStatus != 'Select your book status'){
+            if(title != '' && author != '' && pages != '' && bookStatus != ''){
                 myLibrary.unshift(new Book(title, author, pages, bookStatus));
-                
-                //saving to local storage
-                localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 
-                //addBookToLibrary(bookStatus);
-                loadShelf(myLibrary.length);
-
+                loadShelf();
                 resetValues();
             }
             else{
-            // boxBorder('red');
+                invalidInput();
             }
         }
         else{
             alert("This book already exists. Try deleting and adding it again.")
         }
+        console.log(myLibrary)
+    });
+
+    submitEdit.addEventListener("click", function(){
+        if(currBook != -1 && bookStatus != ''){
+            myLibrary[currBook].status = bookStatus;
+        }
+        loadShelf();
+        resetValues()
         console.log(myLibrary)
     });
 
@@ -74,19 +81,47 @@ function Library(){
             pages = userInput.value;
         }
         else if(userInput.className == 'search-categories'){
-            bookStatus = userInput.options[userInput.selectedIndex].text;
+            if(userInput.options[userInput.selectedIndex].text != 'Select your book status'){
+                bookStatus = userInput.options[userInput.selectedIndex].text;
+            }
         }
-        //document.querySelector('.' + userInput.className).style.cssText = 'border: 1px solid gray;'
     };
 
-    function loadShelf(len){
+    booksSection.addEventListener("click", function(e){
+        
+        let matches = Array.prototype.slice.call(document.querySelectorAll(".book"));
+        
+        // Test to see if array contains the one that was clicked
+        if(matches.includes(e.target) || e.target.parentNode.className == 'book'){
+            currBook = myLibrary.findIndex((obj => obj.title == e.target.closest('.book').firstChild.textContent));
+            currTitle = e.target.closest('.book').firstChild.textContent;
+
+            document.querySelector('.edit-title').innerHTML = e.target.closest('.book').firstChild.textContent
+            showDialog(editDialog);
+
+            editDialog.addEventListener("mouseout", function(e){
+                addBookDetail(e.target);
+            });
+
+        }
+    });
+
+    deleteBook.addEventListener("click", function(){
+        myLibrary = myLibrary.filter(({title}) => !title.includes(currTitle));
+        //console.log(myLibrary);
+        loadShelf();
+        resetValues();
+    });
+
+    function loadShelf(){
         console.log(myLibrary)
-        //myLibrary = []
-        //localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+
+        //saving to local storage
+        localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 
         document.querySelectorAll(".book").forEach(el => el.remove());
 
-        for (let i = 0; i < len; i++){
+        for (let i = 0; i < myLibrary.length; i++){
             let book = document.createElement('div');
             book.className = 'book';
 
@@ -124,58 +159,47 @@ function Library(){
         pages = '';
         bookStatus = ''; 
 
+        currBook = -1
+
         dialog.style.display = 'none';
-        booksSection.style.opacity = '1';
-        addBook.style.opacity = '1';
+        editDialog.style.display = 'none';
+
+        document.querySelector('.background-screen').style.display = 'none';
+
+        resetInvalidInput();
 
         dialog.reset();
-        //boxBorder();
+        editDialog.reset();
     };
 
-    const shelf = document.querySelectorAll('.shelf');
+    function showDialog(val){
+        val.style.display = 'flex'; 
+        document.querySelector('.background-screen').style.display = 'block';
+    };
 
-    booksSection.addEventListener("click", function(e){
-        
-        let matches = Array.prototype.slice.call(document.querySelectorAll(".book"));
-  
-        // Test to see if array contains the one that was clicked
-        if(matches.includes(e.target)){
-            console.log(e.target.closest('.section').className);
+
+    function invalidInput(){
+        //set border color to red (indicated required field)
+        if(title === ''){
+            document.querySelector('.title').classList.add("invalid");
         }
-        else if(e.target.parentNode.className == 'book'){
-            console.log(e.target.parentNode.closest('.section').className);
+        if(author === ''){
+            document.querySelector('.author').classList.add("invalid");
         }
-    });
+        if(pages === ''){
+            document.querySelector('.pages').classList.add("invalid");
+        }
+        if(bookStatus === ''){
+            document.querySelector('.search-categories').classList.add("invalid");
+        }   
+    }
+    function resetInvalidInput(){
+        let elems = dialog.querySelectorAll("[required]");
+    
+        for(let i = 0; i < elems.length; i++){
+            elems[i].classList.remove("invalid");
+        }
+    };
 }
 
 Library();
-
-
-
-
-/*function boxBorder(color){
-    //set border color to red (indicated required field)
-    if(color === 'red'){
-        if(title === ''){
-            document.querySelector('.title').style.cssText = "border: 1px solid red";
-            console.log(bookStatus)
-        }
-        if(author === ''){
-            document.querySelector('.author').style.cssText = "border: 1px solid red";
-        }
-        if(pages === ''){
-            document.querySelector('.pages').style.cssText = "border: 1px solid red";
-        }
-        if(bookStatus === 'Select your book status'){
-            document.querySelector('.search-categories').style.cssText = "border: 1px solid red";
-        }
-    }
-    //reset border color to gray
-    else{
-        let elems = dialog.querySelectorAll("[required]");
-
-        for(let i = 0; i < elems.length-1; i++){
-            elems[i].style.cssText = 'border: 1px solid gray'; 
-        }
-    }
-}*/

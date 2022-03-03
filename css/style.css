@@ -70,6 +70,7 @@
     justify-content: flex-start; /* center items vertically */
     align-items: center;     /* center items horizontally*/
     overflow-x: scroll;
+    border: 1px solid black;
 }
 .shelf > *{
     background-color: antiquewhite;
@@ -91,7 +92,7 @@
 .dialog, .edit-book{
     width: 300px;
     height: 400px;
-    z-index: 1;
+    z-index: 2;
     top: 140px;
     left: 50%;
     margin-left: -150px;
@@ -110,15 +111,21 @@
 }
 
 .edit-book{
-    height: 150px;
+    height: 300px;
 }
-.edit-book > button{
+.edit-book > .delete{
     background-color: rgb(245, 86, 86);
     border-radius: 5px;
     border: 1px solid rgb(245, 38, 38);
+    margin-top: 0px;
 }
-.edit-book > button:hover{
+.edit-book > .delete:hover{
     background-color: rgb(241, 115, 115);
+}
+.edit-book > h2{
+    min-height: 20%;
+    font-size: large;
+    overflow: scroll;
 }
 
 select {
@@ -136,4 +143,29 @@ select {
     font-size: 1rem;
     right: 10px;
     position: absolute;
+}
+.background-screen{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: gray;
+    opacity: 0.3;
+    z-index: 1;
+    display: none;
+}
+@keyframes shake3 {
+    0% {left: -5px}
+    16% {left: 5px}
+    33% {left: -5px}
+    49% {left: 5px}
+    66% {left: -5px}
+    80% {left: 5px}
+    100% {left: 0}
+} /* And @keyframes with prefixes */
+
+.invalid {
+  border: 2px solid red;
+  animation-name: shake3;
+  animation-duration: .4s;
+  position: relative;
 }
