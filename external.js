@@ -108,7 +108,7 @@ function Library(){
 
     deleteBook.addEventListener("click", function(){
         myLibrary = myLibrary.filter(({title}) => !title.includes(currTitle));
-        //console.log(myLibrary);
+        
         loadShelf();
         resetValues();
     });
@@ -177,7 +177,6 @@ function Library(){
         document.querySelector('.background-screen').style.display = 'block';
     };
 
-
     function invalidInput(){
         //set border color to red (indicated required field)
         if(title === ''){
@@ -193,6 +192,7 @@ function Library(){
             document.querySelector('.search-categories').classList.add("invalid");
         }   
     }
+
     function resetInvalidInput(){
         let elems = dialog.querySelectorAll("[required]");
     

@@ -153,6 +153,8 @@ select {
     z-index: 1;
     display: none;
 }
+
+/*displays when required input is invalid*/
 @keyframes shake3 {
     0% {left: -5px}
     16% {left: 5px}
@@ -161,8 +163,7 @@ select {
     66% {left: -5px}
     80% {left: 5px}
     100% {left: 0}
-} /* And @keyframes with prefixes */
-
+} 
 .invalid {
   border: 2px solid red;
   animation-name: shake3;
